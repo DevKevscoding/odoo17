@@ -1,15 +1,27 @@
-
 services:
   - type: web
-    name: odoo17
+    name: odoo-app
     env: docker
     plan: free
     dockerfilePath: ./Dockerfile
     autoDeploy: true
     envVars:
       - key: DB_HOST
-        value: your_postgres_host
+        fromService:
+          type: postgres
+          name: odoo-db
       - key: DB_USER
-        value: your_postgres_user
+        fromService:
+          type: postgres
+          name: odoo-db
+          property: user
       - key: DB_PASSWORD
-        value: your_postgres_password
+        fromService:
+          type: postgres
+          name: odoo-db
+          property: password
+
+databases:
+  - name: odoo-db
+    plan: free
+    postgresMajorVersion: 15
