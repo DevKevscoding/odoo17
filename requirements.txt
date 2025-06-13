@@ -37,7 +37,7 @@ requests
 rjsmin
 urllib3
 vobject
-Werkzeug
+Werkzeug==2.2.2
 xlrd
 XlsxWriter
 xlwt
