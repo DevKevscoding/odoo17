@@ -13,6 +13,7 @@ idna
 Jinja2
 libsass
 lxml
+lxml_html_clean
 MarkupSafe
 num2words
 ofxparse
