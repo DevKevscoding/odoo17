@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_live_season_manager,live_season_manager,model_live_season,,1,1,1,1
+access_delivery_person_manager,delivery_person_manager,model_delivery_person,,1,1,1,1
+access_live_shopping_beta_manager,live_shopping_beta_manager,model_live_shopping_beta,,1,1,1,1
+access_live_number_manager,live_number_manager,model_live_number,,1,1,1,1
+access_export_excel_temp_manager,export_excel_temp_manager,model_export_excel_temp,,1,1,1,1
+access_live_search_wizard_manager,live_search_wizard_manager,model_live_search_wizard,,1,1,1,1

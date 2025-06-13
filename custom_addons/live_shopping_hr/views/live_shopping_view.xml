@@ -1,0 +1,343 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <record id="action_create_sale_order_action" model="ir.actions.server">
+        <field name="name">Créer Bon de Commande</field>
+        <field name="model_id" ref="model_live_shopping_beta"/>
+        <field name="binding_model_id" ref="model_live_shopping_beta"/>
+        <field name="binding_type">action</field>
+        <field name="state">code</field>
+        <field name="code">records.action_create_sale_order()</field>
+    </record>
+
+    <record id="action_create_purchase_order_action" model="ir.actions.server">
+        <field name="name">Créer une facture</field>
+        <field name="model_id" ref="model_live_shopping_beta"/>
+        <field name="binding_model_id" ref="model_live_shopping_beta"/>
+        <field name="binding_type">action</field>
+        <field name="state">code</field>
+        <field name="code">records.action_create_invoice_direct()</field>
+    </record>
+
+    <record id="action_create_facture_order_action" model="ir.actions.server">
+        <field name="name">Créer Commande Fournisseur</field>
+        <field name="model_id" ref="model_live_shopping_beta"/>
+        <field name="binding_model_id" ref="model_live_shopping_beta"/>
+        <field name="binding_type">action</field>
+        <field name="state">code</field>
+        <field name="code">records.action</field>
+    </record>
+
+    <record id="barcode_label_report_action" model="ir.actions.report">
+      <field name="name">Impression Codes-Barres</field>
+      <field name="model">live.shopping.beta</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">live_shopping_hr.barcode_label_report</field>
+      <field name="print_report_name">'CodeBar_' time.strftime('%Y-%m-%d_%H-%M-%S')</field>
+      <field name="binding_type">report</field>
+      <field name="binding_model_id" ref="model_live_shopping_beta" ></field>
+    </record>
+
+    <record id="view_export_excel_temp_form" model="ir.ui.view">
+      <field name="name">export.excel.temp.form</field>
+      <field name="model">export.excel.temp</field>
+      <field name="arch" type="xml">
+          <form string="Téléchargement du fichier pour etiquittage">
+              <group>
+                  <field name="file_name" invisible="1"/>
+                  <field name="file_data" filename="file_name"/>
+              </group>
+              <footer>
+                  <button string="Fermer" class="btn-secondary" special="cancel"/>
+              </footer>
+          </form>
+      </field>
+    </record>
+
+    <record id="view_my_timesheet_line_pivot" model="ir.ui.view">
+        <field name="name">live.shopping.line.pivot</field>
+        <field name="model">live.shopping.beta</field>
+        <field name="arch" type="xml">
+            <pivot string="Live shopping" sample="1">
+                <field name="date_live" type="row"/>
+                <field name="montant_jp" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="act_hr_timesheet_line_view_pivot" model="ir.actions.act_window.view">
+      <field name="view_mode">pivot</field>
+      <field name="sequence" eval="7"/>
+      <field name="view_id" ref="view_my_timesheet_line_pivot"/>
+      <field name="act_window_id" ref="action_live_shopping"/>
+    </record>
+
+  <record id="view_live_tree" model="ir.ui.view">
+    <field name="name">live.shopping.tree</field>
+    <field name="model">live.shopping.beta</field>
+    <field name="arch" type="xml">
+      <tree editable="top" decoration-info="etat_paiement == 'accompte'" decoration-warning="etat_paiement == 'not_paid'" decoration-danger="etat_jp == 'cancel'" string="Live Shopping" >
+        <header>
+          <!-- <button name="action_print_barcode_labels" string="Imprimer Codes-Barres" type="object"/> -->
+          <button name="action_export_excel"
+                    type="object"
+                    string="Exporter pour etiquettage"
+                    class="btn-primary"/>
+        </header>
+        <button icon="fa-edit" type="object" name="get_formview_action" ></button>
+        <field name="company_id" optional="show" />
+        <field name="season_id" optional="show"/>
+        <field name="date_live" optional="show" />
+        <field name="live_number_id" optional="show" />
+        <field name="sequance" optional="show"/>
+        <field name="product_id" optional="show"/>
+        <field name="variant_value_ids" widget="many2many_tags" optional="show"/>
+        <field name="reference" optional="show"/>
+        <field name="image" widget="image" class="oe_avatar" options="{'zoom': true}"  optional="show"/>
+        <field name="date_envoie" optional="show"/>
+        <field name="remarque_envoie" optional="show" />
+        <field name="status" widget="badge" decoration-success="status == 'dispo'" decoration-warning="status == 'AR'" optional="hide"/>
+        <field name="product_uom_qty" optional="show" />
+        <field name="prix_normal" sum="#" optional="show" />
+        <field name="standard_price" sum="#" optional="show" groups="live_shopping_hr.live_group_manager" />
+        <field name="price_total" sum="#" optional="show" />
+        <field name="categ_id" optional="hide" />
+        <field name="envoie_colis" decoration-success="envoie_colis == 'send'" decoration-warning="envoie_colis == 'not-send'" optional="show" />
+        <field name="rec_colis" decoration-success="rec_colis == 'arived'" decoration-warning="rec_colis == 'not-arrived'" optional="show" />
+        <field name="date_receipt" optional="show" />
+        <field name="entrepot" optional="show" />
+        <field name="remarque" optional="show"/>
+        <field name="etat_mp" optional="show"/>
+        <field name="etat_jp" optional="show"/>
+        <field name="montant_jp" sum="#" optional="show"/>
+        <field name="partner_id" optional="show"/>
+        <field name="other_jp_id" optional="show"/>
+        <field name="contacts" optional="show"/>
+        <field name="accompte_recu" sum="#" optional="show"/>
+        <field name="adresse_livraison" optional="show"/>
+        <field name="etat_colis" widget="badge" decoration-success="etat_colis == 'recup'" decoration-warning="etat_colis == 'return'" optional="show"/>
+        <field name="etat_livraison" widget="badge" decoration-success="etat_livraison == 'livre'" decoration-warning="etat_livraison == 'report'" optional="show"/>
+        <field name="date_livraison" optional="show"/>
+        <field name="delivery_person_id" optional="show"/>
+        <field name="pay_livraison" optional="show"/>
+        <field name="frais_livraison" sum="#" optional="show"/>
+        <field name="remarque_paiement" optional="show"/>
+        <field name="etat_paiement" optional="show"/>
+        <field name="status_aar" optional="show"/>
+        <field name="user_id" optional="show"></field>
+        <field name="frais_diver" sum="#" optional="show"/>
+        <field name="remarque_livraison" optional="show"/>
+        <field name="remarque_generale" optional="show"/>
+        <field name="rapport_commande" optional="show"/>
+        <field name="purchase_order_id" optional="show"/>
+        <field name="sale_order_id" optional="show"/>
+        <field name="facture_order_id" optional="show"/>
+        <field name="ref_envoie" optional="show"/>
+        <field name="reste_paye" optional="show"/>
+        <field name="reste_payer" optional="show"/>
+        <field name="marge" sum="#" optional="show" groups="live_shopping_hr.live_group_manager" />
+        <field name="margin" sum="#" optional="show"/>
+        <field name="barcode" optional="hide"/>
+        <field name="barcode_img" options="{'zoom': true}" widget="image" optional="show" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="view_live_form" model="ir.ui.view">
+    <field name="name">live.shopping.form</field>
+    <field name="model">live.shopping.beta</field>
+    <field name="arch" type="xml">
+      <form string="Casa Live Shopping">
+        <header>
+          <field name="status" widget="statusbar"/>
+        </header>
+        <sheet>
+          <div class="oe_title">
+              <div>
+                <label for="reference" class="h1"/>
+                <field name="reference" class="h1" />
+              </div>
+          </div>
+          <div class="row justify-content-between flex-row" >
+            <div class="col-6" >
+                  <label for="product_id" class="h2 fs-1"/>
+                  <field name="product_id" class="h2 fs-1"></field>
+                <h2>
+                  <field name="variant_value_ids" widget="many2many_tags"></field>
+                </h2>
+                <h3>
+                  <group>
+                    <field name="date_live"></field>
+                  </group>
+                </h3>
+                <h3>
+                  <group>
+                    <field name="partner_id" placeholder="Client 1"></field>
+                  </group>
+                </h3>
+                <h5>
+                  <group>
+                    <field name="user_id" placeholder="Commercial"></field>
+                  </group>
+                </h5>
+            </div>
+            <div class="col-6" >
+                <field name="image" widget="image" options="{'zoom': true}" class="oe_avatar"/>
+            </div>
+          </div>
+          <notebook>
+            <page string="Info live">
+              <group>
+                <group>
+                  <field name="season_id"/>
+                  <field name="sequance"/>
+                  <field name="live_number_id"/>
+                  <field name="company_id"/>
+                  <field name="categ_id"/>
+                </group>
+                <group>
+                  <field name="accompte_recu"/>
+                </group>
+                <group>
+                  <field name="etat_jp"/>
+                  <field name="etat_mp"/>
+                  <field name="status_aar" widget="radio" />
+                </group>
+              </group>
+            </page>
+            <page string="Info colis">
+              <group>
+                <group>
+                  <field name="ref_envoie"/>
+                  <field name="date_envoie"/>
+                  <field name="date_receipt"/>
+                  <field name="envoie_colis"/>
+                  <field name="rec_colis"/>
+                  <field name="etat_colis"/>
+                  <field name="colisage"/>
+                  <field name="entrepot"/>
+                  <field name="status"  widget="badges"/>
+                  <field name="surplus"/>
+                  <field name="product_uom_qty"/>
+                </group>
+                <group>
+                  <field name="prix_normal"/>
+                  <field name="standard_price"/>*
+                  <field name="remarque_envoie"/>
+                  <field name="montant_jp"/>
+                </group>
+              </group>
+            </page>
+            <page string="Info livraison">
+              <group>
+                <group>
+                  <field name="other_jp_id" placeholder="Client 2"/>
+                  <field name="etat_livraison"/>
+                  <field name="date_livraison"/>
+                  <field name="delivery_person_id"/>
+                  <field name="adresse_livraison"/>
+                  <field name="contacts"/>
+                  <field name="pay_livraison"/>
+                  <field name="remarque_paiement"/>
+                </group>
+                <group>
+                  <field name="etat_paiement"/>
+                  <field name="frais_livraison"/>
+                  <field name="remarque_livraison"/>
+                </group>
+              </group>
+            </page>
+            <page string="Commande/ Facture">
+              <group>
+                <group>
+                  <field name="purchase_order_id"/>
+                  <field name="sale_order_id"/>
+                  <field name="rapport_commande"/>
+                </group>
+                <group>
+                  <field name="facture_order_id"/>
+                </group>
+              </group>
+            </page>
+            <page string="Code barre">
+              <group>
+                <group>
+                  <field name="barcode"/>
+                </group>
+                <group>
+                  <field widget="image" name="barcode_img" options="{'zoom': true}"/>
+                </group>
+              </group>
+            </page>
+            <page string="Divers">
+              <group>
+                <group>
+                  <field name="remarque_generale"/>
+                </group>
+              </group>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+    <record id="live_shopping_view_kanban" model="ir.ui.view">
+      <field name="name">live.shopping.beta.kanban</field>
+      <field name="model">live.shopping.beta</field>
+      <field name="arch" type="xml">
+          <kanban>
+              <templates>
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_live_shopping_kanban">
+                        <div class="row" >
+                          <div class="col-6">
+                            <div>
+                              <field name="image" widget="image" class="img img-fluid" />
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <field name="product_id" />
+                            <field name="variant_value_ids" widget="many2many_tags" />
+                          </div>
+                        </div>
+                    </div>
+                </t>
+            </templates>
+          </kanban>
+      </field>
+  </record>
+
+  <record id="paperformat_invoice_ticket_80mm" model="report.paperformat">
+    <field name="name">Ticket 80mm</field>
+    <field name="format">custom</field>
+    <field name="page_height">220</field> <!-- en mm -->
+    <field name="page_width">80</field>   <!-- 80 mm largeur -->
+    <field name="orientation">Portrait</field>
+    <field name="margin_top">0</field>
+    <field name="margin_bottom">0</field>
+    <field name="margin_left">0</field>
+    <field name="margin_right">0</field>
+    <field name="header_line" eval="False"/>
+  </record>
+
+  <record id="action_report_invoice_ticket_80mm" model="ir.actions.report">
+    <field name="name">Ticket Facture 80mm</field>
+    <field name="model">account.move</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">live_shopping_hr.report_invoice_ticket_80mm</field>
+    <field name="report_file">live_shopping_hr.report_invoice_ticket_80mm</field>
+    <field name="print_report_name">'Ticket_%s' % (object.name)</field>
+    <field name="binding_model_id" ref="account.model_account_move"/>
+    <field name="binding_type">report</field>
+    <field name="paperformat_id" ref="live_shopping_hr.paperformat_invoice_ticket_80mm"/>
+  </record>
+
+  <record id="act_hr_timesheet_line_view_tree" model="ir.actions.act_window.view">
+        <field name="view_mode">tree</field>
+        <field name="sequence" eval="6"/>
+        <field name="view_id" ref="view_live_tree"/>
+        <field name="act_window_id" ref="action_live_shopping"/>
+    </record>
+
+</odoo>

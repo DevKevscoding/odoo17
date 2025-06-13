@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <record id="action_live_shopping" model="ir.actions.act_window">
+        <field name="name">Listes des lives diponible</field>
+        <field name="res_model">live.shopping.beta</field>
+        <field name="view_mode">tree,form,kanban,pivot</field>
+    </record>
+
+    <menuitem id="menu_root" 
+        name="Casa Live Shopping Beta" 
+        sequence="10"/>
+
+    <menuitem id="menu_live" 
+        name="Listes des lives"
+        parent="menu_root" 
+        action="action_live_shopping"/>
+
+    <menuitem id="menu_live_search_wizard"
+          name="Rechercher Lives Avancé"
+          parent="menu_root"
+          action="action_live_search"
+          sequence="20"/>
+
+</odoo>

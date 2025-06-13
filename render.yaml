@@ -1,0 +1,15 @@
+
+services:
+  - type: web
+    name: odoo17
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: DB_HOST
+        value: your_postgres_host
+      - key: DB_USER
+        value: your_postgres_user
+      - key: DB_PASSWORD
+        value: your_postgres_password

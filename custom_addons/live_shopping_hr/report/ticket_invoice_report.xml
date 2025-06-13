@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="report_invoice_ticket_80mm">
+    <t t-call-assets="web.report_assets_common" t-js="false"/>
+    <t t-call="web.basic_layout">
+      <t t-foreach="docs" t-as="o">
+        <div class="page"
+             style="width: 90mm; font-size: 12px; font-family: 'DejaVu Sans', sans-serif;
+                    padding: 2px 2px; margin: 0 auto;">
+
+          <!-- LOGO ET INFOS ENTREPRISE -->
+          <div style="text-align: center;">
+            <img t-if="o.company_id.logo"
+                 t-attf-src="data:image/*;base64,{{ o.company_id.logo }}"
+                 style="max-width: 26mm; margin-bottom: 3px;" />
+            <div>
+              <strong style="font-size:13px;"><t t-esc="o.company_id.name" /></strong><br/>
+              <span style="font-size:11px;" >NIF : <t t-if="o.company_id.nif"><t t-esc="o.company_id.nif"/></t></span><br/>
+              <span style="font-size:11px;" >STAT : <t t-if="o.company_id.stat"><t t-esc="o.company_id.stat"/></t></span><br/>
+              <span style="font-size:11px;" >RCS : <t t-if="o.company_id.rcs"><t t-esc="o.company_id.rcs"/></t></span><br/>
+              <span style="font-size:11px;" ><t t-if="o.company_id.street"><t t-esc="o.company_id.street"/></t></span><br/>
+              <span style="font-size:11px;" ><t t-if="o.company_id.phone"><t t-esc="o.company_id.phone"/></t></span><br/>
+              <span style="font-size:11px;" ><t t-if="o.company_id.website"><t t-esc="o.company_id.website"/></t></span><br/>
+            </div>
+          </div>
+
+          <br/>
+
+          <!-- INFOS FACTURE -->
+          <div>
+            <div><strong>Servi par :</strong> <t t-esc="o.user_id.name"/></div>
+            <div><strong>Facture N° :</strong> <t t-esc="o.name"/></div>
+            <div><strong>Date :</strong> <t t-esc="o.invoice_date"/></div>
+            <div><strong>Client :</strong> <t t-esc="o.partner_id.name"/></div>
+          </div>
+
+          <hr/>
+          <!-- EN-TÊTE PRODUITS -->
+          <div style="font-weight: bold;">
+            <span style="display:inline-block; width: 49%;">Produit</span>
+            <span style="display:inline-block; width: 9%; text-align:center;">Qté</span>
+            <span style="display:inline-block; width: 19%; text-align:center;">Prix</span>
+            <span style="display:inline-block; width: 19%; text-align:center;">Total</span>
+          </div>
+          <hr/>
+          <!-- LIGNES PRODUITS -->
+          <t t-foreach="o.invoice_line_ids" t-as="line">
+            <div style="margin: 2px 0;">
+              <span style="display:inline-block; width: 49%; word-wrap: break-word; white-space: normal;">
+                  <t t-esc="line.name"/>
+              </span>
+              <span style="display:inline-block; width: 9%; text-align:center;">
+                <t t-esc="int(line.quantity)"/>
+              </span>
+              <span style="display:inline-block; width: 19%; text-align:right;">
+                <t t-esc="int(line.price_unit)"/> Ar
+              </span>
+              <span style="display:inline-block; width: 19%; text-align:right;">
+                <t t-esc="int(line.price_total)"/> Ar
+              </span>
+            </div>
+          </t>
+          <hr/>
+          <!-- TOTAUX -->
+          <div >
+            <div>
+              <span style="display:inline-block;"><strong>Total HT :</strong></span>
+              <span style="display:inline-block; text-align:right; float:right;"><t t-esc="int(o.amount_untaxed)"/> Ar</span>
+            </div>
+            <div>
+              <span style="display:inline-block;"><strong>TVA :</strong></span>
+              <span style="display:inline-block;text-align:right;float:right;"><t t-esc="int(o.amount_tax)"/> Ar</span>
+            </div>
+            <div>
+              <span style="display:inline-block;"><strong>Total TTC :</strong></span>
+              <span style="display:inline-block;text-align:right;float:right;"><strong><t t-esc="int(o.amount_total)"/> Ar</strong></span>
+            </div>
+          </div>
+          
+          <hr/>
+
+          <!-- MESSAGE -->
+          <div style="text-align: center; margin-top: 1px;">
+            Merci, votre confiance fait notre succès, à bientôt !
+          </div>
+
+        </div>
+      </t>
+    </t>
+  </template>
+</odoo>

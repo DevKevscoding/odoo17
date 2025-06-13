@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <record id="action_live_search" model="ir.actions.act_window">
+        <field name="name">Recherche Lives</field>
+        <field name="res_model">live.search.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_live_search_wizard_form" model="ir.ui.view">
+        <field name="name">live.search.wizard.form</field>
+        <field name="model">live.search.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Recherche de Lives">
+                <group>
+                    <field name="category_id"/>
+                    <field name="attribute_value_ids" widget="many2many_tags"/>
+                </group>
+                <footer>
+                    <button name="action_search_lives" type="object" string="Rechercher" class="btn-primary"/>
+                    <button string="Annuler" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

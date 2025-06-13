@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="barcode_label_report" t-name="live_shopping_hr.barcode_label_report">
+    <t t-call="web.html_container">
+      <t t-call="web.basic_layout">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <h2>
+            Étiquettes générées des lives
+          </h2>
+        </div>
+        <div class="container">
+          <div class="row" style="display: flex; flex-wrap: wrap;">
+            <t t-foreach="docs" t-as="o">
+              <div style="width: 20%; padding: 5px; box-sizing: border-box;">
+                <p class="text-center">
+                    <strong t-field="o.reference" />
+                    <span t-field="o.standart_price" ></span>Ar
+                </p>
+                <div style="border: 1px solid black; padding: 10px; text-align: center; border-radius: 5px;">
+                  <img t-attf-src="data:/image/*;base64,{{
+                        o.barcode_img
+                    }}"
+                    style="max-width: 100%; height: auto;"
+                    />
+                </div>
+              </div>
+            </t>
+          </div>
+        </div>
+      </t>
+    </t>
+  </template>
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    
+    <record id="module_live_security" model="ir.module.category">
+        <field name="name">Live_Shopping</field>
+        <field name="description">Droit des utilisateur</field>
+    </record>
+
+    <record id="live_group_user" model="res.groups">
+        <field name="name">Standart</field>
+        <field name="category_id" ref="module_live_security" ></field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" ></field>
+    </record>
+
+    <record id="live_group_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" ></field>
+        <field name="category_id" ref="module_live_security" ></field>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"></field>
+    </record>
+
+</odoo>
