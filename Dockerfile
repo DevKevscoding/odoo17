@@ -1,14 +1,20 @@
 
 FROM python:3.10
 
-FROM odoo:17
+FROM odoo:17.0
 
-RUN git clone --depth 1 --branch 17.0 https://www.github.com/odoo/odoo /opt/odoo/odoo
+# Copier les modules personnalisés
+COPY ./custom_addons /mnt/extra-addons
 
-WORKDIR /opt/odoo
+# Copier la configuration Odoo
+COPY odoo.conf /etc/odoo/odoo.conf
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+# Dépendances Python supplémentaires si nécessaires
+COPY requirements.txt /tmp/requirements.txt
+RUN pip3 install --upgrade pip && pip3 install -r /tmp/requirements.txt
+
+# Définir le chemin des modules supplémentaires
+ENV PATH_ADDONS=/mnt/extra-addons
 
 COPY . .
 
