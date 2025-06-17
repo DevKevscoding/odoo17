@@ -11,9 +11,11 @@ RUN apt-get update && apt-get install -y \
 
 RUN useradd -m -d /opt/odoo -U -r -s /bin/bash odoo
 
-RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.bookworm_amd64.deb \
-    && apt install -y ./wkhtmltox_0.12.6-1.bookworm_amd64.deb \
-    && rm wkhtmltox_0.12.6-1.bookworm_amd64.deb
+RUN apt-get update && apt-get install -y \
+        wget fontconfig libxrender1 libjpeg-dev libx11-dev libxtst6 && \
+    wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb && \
+    apt install -y ./wkhtmltox_0.12.6-1.focal_amd64.deb && \
+    rm wkhtmltox_0.12.6-1.focal_amd64.deb
 
 RUN git clone --depth 1 --branch 17.0 https://www.github.com/odoo/odoo /opt/odoo/odoo
 
