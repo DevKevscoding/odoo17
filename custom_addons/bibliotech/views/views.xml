@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="bibliotech.list">
+      <field name="name">bibliotech list</field>
+      <field name="model">bibliotech.bibliotech</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="bibliotech.action_window">
+      <field name="name">bibliotech window</field>
+      <field name="res_model">bibliotech.bibliotech</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="bibliotech.action_server">
+      <field name="name">bibliotech server</field>
+      <field name="model_id" ref="model_bibliotech_bibliotech"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="bibliotech" id="bibliotech.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="bibliotech.menu_1" parent="bibliotech.menu_root"/>
+    <menuitem name="Menu 2" id="bibliotech.menu_2" parent="bibliotech.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="bibliotech.menu_1_list" parent="bibliotech.menu_1"
+              action="bibliotech.action_window"/>
+    <menuitem name="Server to list" id="bibliotech" parent="bibliotech.menu_2"
+              action="bibliotech.action_server"/>
+-->
+  </data>
+</odoo>

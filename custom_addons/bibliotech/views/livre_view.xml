@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_bibliotech_livre_tree" model="ir.ui.view">
+        <field name="name">bibliotech.livre.tree</field>
+        <field name="model">bibliotech.livre</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"></field>
+                <field name="auteur" groups="bibliotech.livre_group_manager" ></field>
+                <field name="annee_parution" optional="show" ></field>
+                <field name="isbn" optional="show" ></field>
+                <field name="category_ids" widget="many2many_tags" optional="show" ></field>
+                <field name="edition" optional="show" ></field>
+                <field name="nbr_stock" 
+                    decoration-success="nbr_stock &gt; 10"
+                    decoration-info="nbr_stock &lt; 10 and nbr_stock &gt; 3"
+                    decoration-warning="nbr_stock &lt;= 3 and nbr_stock &gt; 0"
+                    decoration-danger="nbr_stock == 0"
+                
+                ></field>
+                <field name="prix" optional="show" ></field>
+                <field name="devise" optional="show" ></field>
+                <field name="image" widget="image" class="oe_avatar w-25" optional="show" ></field>
+                <field name="etat" widget="badge" decoration-warning="etat  == 'Emprunter'" decoration-success="etat == 'Disponible'" optional="show" ></field>
+            </tree>
+        </field>
+    </record>
+    
+
+    <record id="view_bibliotheque_livre_form" model="ir.ui.view">
+        <field name="name">bibliotech.livre.form</field>
+        <field name="model">bibliotech.livre</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        type="object"
+                        name="transaction_livre"
+                        string="Emprunter / Rapporter"
+                        class="btn btn-primary"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_title" >
+                        <h1>
+                            Section des livres
+                        </h1>
+                    </div>
+                    <div class="row justify-content-between position-relative w-100 m-0 mb-2">
+                        <div class="oe_title mw-75 ps-0 pe-2" >
+                            <field name="name" placeholder="Nom du livre" required="True" style="font-size: min(4vw, 2.6rem);"/>
+                            <div>
+                                <h2>
+                                    <field name="isbn" placeholder="ISBN" ></field>
+                                </h2>
+                                <field name="category_ids" widget="many2many_tags" placeholder="Categorie"/>
+                            </div>
+                        </div>
+                        <div class="o_employee_avatar mw-25 p-0">
+                            <field name="image" widget="image" class="oe_avatar m-0" />
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="auteur"></field>
+                            <field name="annee_parution"></field>
+                            <field name="edition"></field>
+                            <field name="resume"></field>
+                            <field name="public"></field>
+                            <field name="etat"></field>
+                        </group>
+                        <group>
+                            <field name="devise"></field>
+                            <field name="prix"></field>
+                            <field name="nbr_stock"></field>
+                            <field name="qr_code" widget="image" class="oe_avatar m-0" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_fiche_livre" model="ir.actions.report">
+        <field name="name">Fiche de lecture</field>
+        <field name="model">bibliotech.livre</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bibliotech.fiche_lecture</field>
+        <field name="print_report_name">'Livre - %s' % object.name</field>
+        <field name="binding_type">report</field>
+        <field name="binding_model_id" ref="model_bibliotech_livre" />
+    </record>
+
+</odoo>

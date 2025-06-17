@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Actions pour les livres -->
+    <record id="action_bibliotech_livre" model="ir.actions.act_window">
+        <field name="name">Livres</field>
+        <field name="res_model">bibliotech.livre</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Actions pour les categories -->
+    <record id="action_bibliotech_category" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">bibliotech.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Principale -->
+   <menuitem
+    id="menu_bibliotech_root"
+    name="Bibliotech"
+    />
+
+    <!-- Sous Menu -->
+    <menuitem
+        id="menu_bibliotech_livre"
+        name="Listes des livres"
+        parent="menu_bibliotech_root"
+        action="action_bibliotech_livre"
+    />
+    <menuitem
+        id="menu_bibliotech_category"
+        name="Listes des categories"
+        parent="menu_bibliotech_root"
+        action="action_bibliotech_category"
+    />
+
+</odoo>

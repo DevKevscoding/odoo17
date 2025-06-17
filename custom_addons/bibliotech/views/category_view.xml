@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bibliotech_category_tree" model="ir.ui.view">
+        <field name="name">bibliotech.category.tree</field>
+        <field name="model">bibliotech.category</field>
+        <field name="arch" type="xml" >
+            <tree>
+                <field name="name"></field>
+                <field name="description" optional="show" ></field>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_bibliotheque_category_form" model="ir.ui.view">
+        <field name="name">bibliotech.category.form</field>
+        <field name="model">bibliotech.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div clas="oe_title" >
+                        <h1>
+                            Section des categories
+                        </h1>                        
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"></field>
+                        </group>
+                        <group>
+                            <field name="description"></field>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

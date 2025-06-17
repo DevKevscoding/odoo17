@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="fiche_lecture">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div>
+                        <h1 class="text-center">
+                            <strong>Fiche de lecture</strong>
+                        </h1>
+                        <br />
+                        <div class="container">
+                            <h3 class="text-decoration-underline text-primary">
+                                Information du livre
+                            </h3>
+                            <div class="row">
+                                <div class="col-9">
+                                    <h4>
+                                        Nom : <span t-field="o.name"></span>
+                                    </h4>
+                                    <p>
+                                        ISBN :
+                                        <span t-field="o.isbn"></span>
+                                    </p>
+                                    <p>
+                                        Auteur :
+                                        <span t-field="o.auteur"></span>
+                                    </p>
+                                    <p>
+                                        Annee de parution :
+                                        <span t-field="o.annee_parution"></span>
+                                    </p>
+                                    <p>
+                                        Categorie :
+                                        <t t-if="o.category_ids">
+                                            <ul>
+                                                <t
+                                                    t-foreach="o.category_ids"
+                                                    t-as="category"
+                                                >
+                                                    <li>
+                                                        <t
+                                                            t-esc="category.name"
+                                                        />
+                                                    </li>
+                                                </t>
+                                            </ul>
+                                        </t>
+                                    </p>
+                                    <p>
+                                        Edition :
+                                        <span t-field="o.edition"></span>
+                                    </p>
+                                    <p>
+                                        Public visée :
+                                        <span t-field="o.public"></span>
+                                    </p>
+                                    <p>
+                                        Etat actuel :
+                                        <t t-if="o.etat == 'Disponible'">
+                                            <span
+                                                t-field="o.etat"
+                                                class="text-success fs-5"
+                                            ></span>
+                                        </t>
+                                        <t t-else="">
+                                            <span
+                                                t-field="o.etat"
+                                                class="text-warning fs-5"
+                                            ></span>
+                                        </t>
+                                    </p>
+                                    <p>
+                                        Resume :
+                                        <span t-field="o.resume"></span>
+                                    </p>
+                                </div>
+                                <div class="col-3">
+                                    <h4 class="text-center">Couverture</h4>
+                                    <img
+                                        t-attf-src="data:/image/*;base64,{{
+                                            o.image
+                                        }}"
+                                        class="img img-fluid w-100"
+                                    />
+                                </div>
+                            </div>
+                            <br />
+                            <h3 class="text-decoration-underline text-primary">
+                                Information supplementaire
+                            </h3>
+                            <div class="row">
+                                <div class="col-9">
+                                    <h4>
+                                        Devise :
+                                        <span t-field="o.devise"></span>
+                                    </h4>
+                                    <p>
+                                        Prix :
+                                        <span t-field="o.prix"></span>
+                                    </p>
+                                    <p>
+                                        En stock (unitée) :
+                                        <span t-field="o.nbr_stock"></span>
+                                    </p>
+                                </div>
+                                <div class="col-3">
+                                    <h4 class="text-center">QR CODE</h4>
+                                    <img
+                                        t-attf-src="data:/image/*;base64,{{
+                                            o.qr_code
+                                        }}"
+                                        class="img img-fluid w-100"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
