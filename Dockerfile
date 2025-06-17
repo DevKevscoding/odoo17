@@ -1,6 +1,3 @@
-
-FROM python:3.10
-
 FROM odoo:17.0
 
 # Copier les modules personnalisés
@@ -15,9 +12,3 @@ RUN pip3 install --upgrade pip && pip3 install -r /tmp/requirements.txt
 
 # Définir le chemin des modules supplémentaires
 ENV PATH_ADDONS=/mnt/extra-addons
-
-COPY . .
-
-EXPOSE 8069
-
-CMD ["python3", "odoo/odoo-bin", "-c", "/opt/odoo/odoo.conf"]
