@@ -4,7 +4,7 @@ echo "🚀 Lancement du serveur Odoo avec initialisation de la base de données"
 
 # Attente du démarrage de PostgreSQL (optionnel mais recommandé)
 echo "⏳ Attente de PostgreSQL..."
-while ! nc -z "$DB_HOST" "$DB_PORT"; do
+while ! nc -z "dpg-d1956mfdiees73ah88r0-a" "5432"; do
   sleep 1
 done
 echo "✅ PostgreSQL est prêt"
