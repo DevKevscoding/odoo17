@@ -17,4 +17,3 @@ exec odoo \
   --http-port=8070 \
   --without-demo=all \
   --log-level=info \
-  --addons-path=/mnt/extra-addons,/custom_addons
