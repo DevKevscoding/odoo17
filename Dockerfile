@@ -8,6 +8,4 @@ COPY --chmod=755 entrypoint.sh /entrypoint.sh
 
 EXPOSE 8069
 
-RUN chmod +x /entrypoint.sh
-
 ENTRYPOINT ["/entrypoint.sh"]
