@@ -8,6 +8,6 @@ exec odoo \
   --db_port=5432 \
   --db_user=odoo_postgres_cfe9_user \
   --db_password=pjrToD9oJOtDDdW9Y6fV8Gh21wFoQX8F \
-  --http-port=8070 \
+  --http-port=8069 \
   --without-demo=all \
   --log-level=info
