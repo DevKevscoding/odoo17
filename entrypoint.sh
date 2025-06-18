@@ -7,13 +7,13 @@ rm -rf /var/lib/odoo/filestore/* /var/lib/odoo/.local/share/Odoo/filestore/* || 
 rm -rf /var/lib/odoo/.local/share/Odoo/web/assets/* || true
 
 exec odoo \
-  -d odoo_postgres_cfe9 \
+  -d odoo_postgres_q0y5 \
   -i base \
   --dev=all \
-  --db_host=dpg-d1956mfdiees73ah88r0-a \
+  --db_host=dpg-d19682ali9vc739lg330-a \
   --db_port=5432 \
-  --db_user=odoo_postgres_cfe9_user \
-  --db_password=pjrToD9oJOtDDdW9Y6fV8Gh21wFoQX8F \
+  --db_user=odoo_postgres_q0y5_user \
+  --db_password=CZcNYSLTDseBKvmXZkxNXlXlrhGNVlQV \
   --http-port=8070 \
   --without-demo=all \
   --log-level=info \
