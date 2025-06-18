@@ -6,6 +6,6 @@ RUN pip3 install --upgrade pip && pip3 install -r /tmp/requirements.txt
 
 COPY --chmod=755 entrypoint.sh /entrypoint.sh
 
-EXPOSE 8070
+EXPOSE 8069
 
 ENTRYPOINT ["/entrypoint.sh"]
